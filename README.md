@@ -1,39 +1,21 @@
+
 # Microservices Kubernetes Deployment Assessment
 
-![Kubernetes](https://img.shields.io/badge/Kubernetes-v1.35-blue)
-![Minikube](https://img.shields.io/badge/Minikube-v1.38.1-red)
-![Docker](https://img.shields.io/badge/Docker-29.4-blue)
-![Node.js](https://img.shields.io/badge/Node.js-Express-green)
-![Status](https://img.shields.io/badge/Assignment-Completed-brightgreen)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-v1.35-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)
+![Minikube](https://img.shields.io/badge/Minikube-v1.38.1-FF6F00?style=for-the-badge&logo=kubernetes&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-v29.4.0-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-Express-339933?style=for-the-badge&logo=node.js&logoColor=white)
+![Assignment](https://img.shields.io/badge/Assignment-Completed-success?style=for-the-badge)
 
-## Objective
-
-Deploy a Node.js based microservices application on Kubernetes using Minikube and validate inter-service communication.
+> Kubernetes deployment of a Node.js microservices application using Minikube with Deployments, Services, ClusterIP networking, Health Probes, Gateway API and Bonus NGINX Ingress.
 
 ---
 
-## Project Structure
+# Objective
 
-```text
-Microservices-Kubernetes-Task/
-├── deployments/
-│   ├── user-service.yaml
-│   ├── product-service.yaml
-│   ├── order-service.yaml
-│   └── gateway-service.yaml
-├── services/
-│   ├── user-service.yaml
-│   ├── product-service.yaml
-│   ├── order-service.yaml
-│   └── gateway-service.yaml
-├── ingress/
-│   └── ingress.yaml
-├── screenshots/
-├── Microservices/
-└── README.md
-```
+Deploy four Node.js microservices on Kubernetes using Minikube and validate communication between services.
 
-## Application Components
+# Application Components
 
 | Service | Port |
 |---------|-----:|
@@ -42,7 +24,21 @@ Microservices-Kubernetes-Task/
 | Order Service | 3002 |
 | Gateway Service | 3003 |
 
-## Prerequisites
+# Repository Structure
+
+```text
+Microservices-Kubernetes-Task/
+├── deployments/
+├── services/
+├── ingress/
+├── screenshots/
+├── Microservices/
+├── README.md
+├── LICENSE
+└── .gitignore
+```
+
+# Prerequisites
 
 - Ubuntu 22.04
 - Docker
@@ -50,7 +46,7 @@ Microservices-Kubernetes-Task/
 - kubectl
 - Git
 
-## Start Minikube
+# Start Minikube
 
 ```bash
 minikube start --driver=docker --cpus=2 --memory=4096
@@ -58,7 +54,7 @@ minikube status
 kubectl get nodes
 ```
 
-## Load Docker Images
+# Load Docker Images
 
 ```bash
 minikube image load microservices-task-user-service:latest
@@ -67,7 +63,7 @@ minikube image load microservices-task-order-service:latest
 minikube image load microservices-task-gateway-service:latest
 ```
 
-## Deploy
+# Deploy Resources
 
 ```bash
 kubectl apply -f deployments/
@@ -82,13 +78,13 @@ kubectl get pods
 kubectl get svc
 ```
 
-## Test Gateway
+# Test Application
 
 ```bash
 kubectl port-forward service/gateway-service 3003:3003
 ```
 
-In another terminal:
+Open another terminal:
 
 ```bash
 curl http://localhost:3003/api/users
@@ -102,7 +98,7 @@ curl -X POST http://localhost:3003/api/orders \
 curl http://localhost:3003/api/orders
 ```
 
-## Bonus - Ingress
+# Bonus - Ingress
 
 ```bash
 minikube addons enable ingress
@@ -110,7 +106,7 @@ kubectl apply -f ingress/ingress.yaml
 kubectl get ingress
 ```
 
-Add to `/etc/hosts`:
+Add to `/etc/hosts`
 
 ```text
 <MINIKUBE_IP> microservices.local
@@ -124,7 +120,7 @@ curl http://microservices.local/api/products
 curl http://microservices.local/api/orders
 ```
 
-## Troubleshooting
+# Troubleshooting
 
 ```bash
 kubectl describe pod <pod-name>
@@ -132,7 +128,7 @@ kubectl logs <pod-name>
 kubectl rollout restart deployment/<deployment-name>
 ```
 
-## Technologies
+# Technologies
 
 - Kubernetes
 - Minikube
@@ -141,21 +137,22 @@ kubectl rollout restart deployment/<deployment-name>
 - Express.js
 - Git
 
-## Assignment Status
+# Assignment Status
 
 | Task | Status |
 |------|:------:|
 | Deployments | ✅ |
 | Services | ✅ |
-| Resource Requests & Limits | ✅ |
+| Resource Requests | ✅ |
+| Resource Limits | ✅ |
 | Environment Variables | ✅ |
 | Liveness Probe | ✅ |
 | Readiness Probe | ✅ |
-| ClusterIP | ✅ |
+| ClusterIP Services | ✅ |
 | Inter-Service Communication | ✅ |
 | Bonus Ingress | ✅ |
 
-## Screenshots
+# Screenshots
 
 | Screenshot | Preview |
 |------------|---------|
@@ -181,7 +178,7 @@ kubectl rollout restart deployment/<deployment-name>
 | 20 - Ingress Created | ![](screenshots/20_ingress_created.png) |
 | 21 - Ingress Test | ![](screenshots/21_ingress_test.png) |
 
-## Author
+# Author
 
 **Rahul Sahane**
 
