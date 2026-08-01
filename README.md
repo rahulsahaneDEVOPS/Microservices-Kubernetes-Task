@@ -200,31 +200,247 @@ kubectl logs <pod-name>
 kubectl rollout restart deployment/<deployment-name>
 ```
 
-# Screenshot Gallery
+# 📸 Deployment Workflow & Screenshots
 
-| # | Preview |
-|---|---|
-| 01 | ![](screenshots/01_No_available_destinations_to_fork_this_repository.png) |
-| 02 | ![](screenshots/02_NewRepo_Microservices-Kubernetes-Task.png) |
-| 03 | ![](screenshots/03_minikube_start.png) |
-| 04 | ![](screenshots/04_minikube_status.png) |
-| 05 | ![](screenshots/05_current_context.png) |
-| 06 | ![](screenshots/06_minikube_node.png) |
-| 07 | ![](screenshots/07_docker_images.png) |
-| 08 | ![](screenshots/08_minikube_images.png) |
-| 09 | ![](screenshots/09_user_logs.png) |
-| 10 | ![](screenshots/10_k8s_user_product_status.png) |
-| 11 | ![](screenshots/11_user_product_order_running.png) |
-| 12 | ![](screenshots/12_all_services_running.png) |
-| 13 | ![](screenshots/13_gateway_logs.png) |
-| 14 | ![](screenshots/14_port_forward.png) |
-| 15 | ![](screenshots/15_api_users.png) |
-| 16 | ![](screenshots/16_api_orders.png) |
-| 17 | ![](screenshots/17_create_order.png) |
-| 18 | ![](screenshots/18_get_orders.png) |
-| 19 | ![](screenshots/19_ingress_controller.png) |
-| 20 | ![](screenshots/20_ingress_created.png) |
-| 21 | ![](screenshots/21_ingress_test.png) |
+This section documents the complete deployment workflow from repository creation to successful Kubernetes deployment and validation.
+
+---
+
+## Step 01 – Repository Creation
+**Screenshot:** `01_No_available_destinations_to_fork_this_repository.png`
+
+The original repository could not be forked, so a new GitHub repository was created manually.
+
+![](screenshots/01_No_available_destinations_to_fork_this_repository.png)
+
+---
+
+## Step 02 – Create New GitHub Repository
+**Screenshot:** `02_NewRepo_Microservices-Kubernetes-Task.png`
+
+Created a dedicated repository for the Kubernetes assignment.
+
+![](screenshots/02_NewRepo_Microservices-Kubernetes-Task.png)
+
+---
+
+## Step 03 – Start Minikube Cluster
+
+```bash
+minikube start --driver=docker --cpus=2 --memory=4096
+```
+
+**Screenshot:** `03_minikube_start.png`
+
+![](screenshots/03_minikube_start.png)
+
+---
+
+## Step 04 – Verify Minikube Status
+
+```bash
+minikube status
+```
+
+**Screenshot:** `04_minikube_status.png`
+
+![](screenshots/04_minikube_status.png)
+
+---
+
+## Step 05 – Verify Kubernetes Context
+
+```bash
+kubectl config current-context
+```
+
+**Screenshot:** `05_current_context.png`
+
+![](screenshots/05_current_context.png)
+
+---
+
+## Step 06 – Verify Kubernetes Node
+
+```bash
+kubectl get nodes
+```
+
+**Screenshot:** `06_minikube_node.png`
+
+![](screenshots/06_minikube_node.png)
+
+---
+
+## Step 07 – Verify Docker Images
+
+```bash
+docker images
+```
+
+**Screenshot:** `07_docker_images.png`
+
+![](screenshots/07_docker_images.png)
+
+---
+
+## Step 08 – Load Images into Minikube
+
+```bash
+minikube image ls
+```
+
+**Screenshot:** `08_minikube_images.png`
+
+![](screenshots/08_minikube_images.png)
+
+---
+
+## Step 09 – Verify User Service Logs
+
+```bash
+kubectl logs deployment/user-service
+```
+
+**Screenshot:** `09_user_logs.png`
+
+![](screenshots/09_user_logs.png)
+
+---
+
+## Step 10 – Deploy User & Product Services
+
+**Screenshot:** `10_k8s_user_product_status.png`
+
+Verified User and Product deployments, pods and services.
+
+![](screenshots/10_k8s_user_product_status.png)
+
+---
+
+## Step 11 – Deploy Order Service
+
+**Screenshot:** `11_user_product_order_running.png`
+
+Verified User, Product and Order services.
+
+![](screenshots/11_user_product_order_running.png)
+
+---
+
+## Step 12 – Deploy Gateway Service
+
+**Screenshot:** `12_all_services_running.png`
+
+Verified all four services are running successfully.
+
+![](screenshots/12_all_services_running.png)
+
+---
+
+## Step 13 – Gateway Logs
+
+```bash
+kubectl logs deployment/gateway-service
+```
+
+**Screenshot:** `13_gateway_logs.png`
+
+![](screenshots/13_gateway_logs.png)
+
+---
+
+## Step 14 – Port Forward Gateway
+
+```bash
+kubectl port-forward service/gateway-service 3003:3003
+```
+
+**Screenshot:** `14_port_forward.png`
+
+![](screenshots/14_port_forward.png)
+
+---
+
+## Step 15 – Test Users API
+
+```bash
+curl http://localhost:3003/api/users
+```
+
+**Screenshot:** `15_api_users.png`
+
+![](screenshots/15_api_users.png)
+
+---
+
+## Step 16 – Test Orders API
+
+```bash
+curl http://localhost:3003/api/orders
+```
+
+**Screenshot:** `16_api_orders.png`
+
+![](screenshots/16_api_orders.png)
+
+---
+
+## Step 17 – Create Order
+
+```bash
+curl -X POST http://localhost:3003/api/orders -H "Content-Type: application/json" -d '{"userId":1,"productId":2}'
+```
+
+**Screenshot:** `17_create_order.png`
+
+![](screenshots/17_create_order.png)
+
+---
+
+## Step 18 – Retrieve Orders
+
+```bash
+curl http://localhost:3003/api/orders
+```
+
+**Screenshot:** `18_get_orders.png`
+
+![](screenshots/18_get_orders.png)
+
+---
+
+## Step 19 – Enable NGINX Ingress
+
+```bash
+minikube addons enable ingress
+```
+
+**Screenshot:** `19_ingress_controller.png`
+
+![](screenshots/19_ingress_controller.png)
+
+---
+
+## Step 20 – Create Ingress Resource
+
+```bash
+kubectl get ingress
+```
+
+**Screenshot:** `20_ingress_created.png`
+
+![](screenshots/20_ingress_created.png)
+
+---
+
+## Step 21 – Validate Ingress
+
+**Screenshot:** `21_ingress_test.png`
+
+Verified successful routing through NGINX Ingress.
+
+![](screenshots/21_ingress_test.png)
 
 
 # Learning Outcomes
